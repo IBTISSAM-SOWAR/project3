@@ -1,55 +1,82 @@
-let all = document.getElementById('dashboard');
-let albiena = document.getElementById('recipes');
-let cheng = document.getElementById('indian-rec');
+
+let tabDashboard = document.getElementById('tab-dashboard');
+let tabAlbanian = document.getElementById('tab-albanian');
+let tabIndian = document.getElementById('tab-indian');
 let content = document.getElementById('content');
-let indian = document.getElementById('indian');
 
-all.addEventListener('click', function() {
-    cheng.classList.remove('hidden');
-    cheng.classList.add('flex');
-    const recipeHTML = showRecipes();
-    content.innerHTML+= recipeHTML;
+tabDashboard.addEventListener('click', function () {
+    const ir = indianRecipes();
+    const ar = albanianRecipes();
+
+    content.innerHTML = ir + ar;
 });
 
-albiena.addEventListener('click', function() {
-    cheng.classList.remove('flex');
-    cheng.classList.add('hidden');  
-    const recipeHTML = showRecipes();
-    content.innerHTML = recipeHTML;
+tabAlbanian.addEventListener('click', function () {
+    const ar = albanianRecipes();
+    content.innerHTML = ar;
 });
 
-indian.addEventListener('click', function() {
-     cheng.classList.remove('hidden');
-     cheng.classList.add('flex');
-     
+tabIndian.addEventListener('click', function () {
+    const ir = indianRecipes();
+    content.innerHTML = ir;
 });
 
-
-function showRecipes() {
+function indianRecipes() {
     const recipes = [
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' },
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' },
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' },
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' },
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' },
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' },
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' },
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' },
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' },
-        { title: 'lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat, excepturi', image: 'images/immg.jpg' }
+        { title: 'Cheese Triangles', description: 'Delicious cheesy triangles.', image: 'images/immge.jpg' },
+        { title: 'Baked Lamb', description: 'A traditional Indian lamb dish.', image: 'images/immge.jpg' },
+        { title: 'Pan-Fried Fish', description: 'Fresh fish lightly pan-fried.', image: 'images/immge.jpg' },
+
     ];
 
-    let recipeHTML = '<div class="recipe-list">';
+    let recipeHTML = `<div class="indian-recipe-list">
+        <h1 class="text-2xl font-semibold mb-4">Indian Recipes</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+
     recipes.forEach(recipe => {
         recipeHTML += `
-            <div class="recipe-item">
-                <img src="${recipe.image}" alt="${recipe.title}">
-                <h3>${recipe.title}</h3>
-                <p>${recipe.description}</p>
-            </div>
-        `;
+            <div class="recipe-item bg-white rounded shadow-lg p-4">
+                <img class="w-full h-36 object-cover rounded" src="${recipe.image}" alt="${recipe.title}">
+                <h3 class="text-lg font-bold mt-2">${recipe.title}</h3>
+                <p class="text-gray-600 text-sm mt-1">${recipe.description}</p>
+                <div class="mt-4 flex space-x-2">
+                    <button class="bg-green-500 text-white px-3 py-1 rounded" onclick="alert('${recipe.title}')">View</button>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded edit-button">Edit</button>
+                    <button class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+                </div>
+            </div>`;
     });
-    recipeHTML += '</div>';
 
+    recipeHTML += '</div></div>';
+    return recipeHTML;
+}
+
+function albanianRecipes() {
+    const recipes = [
+        { title: 'Pizza', description: 'Classic pizza with an Indian twist.', image: 'images/immg.jpg' },
+        { title: 'Sheqerpare', description: 'Sweet syrup-soaked cookies.', image: 'images/immg.jpg' },
+        { title: 'Flija Pancake', description: 'Layered pancake, a Balkan delicacy.', image: 'images/immg.jpg' },
+        { title: 'Revani Cake', description: 'Traditional semolina-based dessert.', image: 'images/immg.jpg' }
+    ];
+
+    let recipeHTML = `<div class="albanian-recipe-list">
+        <h1 class="text-2xl font-semibold mb-4 mt-4">Albanian Recipes</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+
+    recipes.forEach(recipe => {
+        recipeHTML += `
+            <div class="recipe-item bg-white rounded shadow-lg p-4">
+                <img class="w-full h-36 object-cover rounded" src="${recipe.image}" alt="${recipe.title}">
+                <h3 class="text-lg font-bold mt-2">${recipe.title}</h3>
+                <p class="text-gray-600 text-sm mt-1">${recipe.description}</p>
+                <div class="mt-4 flex space-x-2">
+                    <button class="bg-green-500 text-white px-3 py-1 rounded" onclick="alert('${recipe.title}')">View</button>
+                    <button class="bg-blue-500 text-white px-3 py-1 rounded edit-button">Edit</button>
+                    <button class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+                </div>
+            </div>`;
+    });
+
+    recipeHTML += '</div></div>';
     return recipeHTML;
 }
